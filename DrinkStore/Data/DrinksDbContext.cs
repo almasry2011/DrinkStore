@@ -1,4 +1,5 @@
-﻿using DrinkStore.Data.Models;
+﻿using DrinkAndGo.Data.Models;
+using DrinkStore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace DrinkStore.Data
         }
         public DbSet<Drink> drinks { get; set; }
         public DbSet<Category> categories { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
     }
 }

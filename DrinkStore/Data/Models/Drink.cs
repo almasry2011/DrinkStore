@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DrinkAndGo.Data.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +20,7 @@ namespace DrinkStore.Data.Models
         public bool InStock { get; set; }
 
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
+   
     }
 }

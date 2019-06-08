@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrinkStore.Migrations
 {
     [DbContext(typeof(DrinksDbContext))]
-    [Migration("20190608071824_InitMigration")]
-    partial class InitMigration
+    [Migration("20190608165835_reinit")]
+    partial class reinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,25 @@ namespace DrinkStore.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DrinkStore.Data.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DrinkId");
+
+                    b.Property<string>("ShoppingCartID");
+
+                    b.Property<int>("amount");
+
+                    b.HasKey("CartItemId");
+
+                    b.HasIndex("DrinkId");
+
+                    b.ToTable("CartItems");
+                });
 
             modelBuilder.Entity("DrinkStore.Data.Models.Category", b =>
                 {
@@ -64,6 +83,14 @@ namespace DrinkStore.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("drinks");
+                });
+
+            modelBuilder.Entity("DrinkStore.Data.Models.CartItem", b =>
+                {
+                    b.HasOne("DrinkStore.Data.Models.Drink", "Drink")
+                        .WithMany()
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DrinkStore.Data.Models.Drink", b =>
