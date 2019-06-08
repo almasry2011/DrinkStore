@@ -16,10 +16,20 @@ namespace DrinkStore.Controllers
             this.drinksRepo = drinksRepo;
         }
 
-        public IActionResult List()
+        public IActionResult List( string cat)
         {
-            var listModel = drinksRepo.ListDrinks;
-            return View(listModel);
+            if (!string.IsNullOrEmpty(cat))
+            {
+                var filter = drinksRepo.GetDrinksByCategories(cat);
+               return View(filter);
+            }
+            else
+            {
+                var listModel = drinksRepo.ListDrinks;
+                return View(listModel);
+            }
         }
+     
+ 
     }
 }

@@ -6,8 +6,10 @@ namespace DrinkStore.Data.Repositories
     public interface IDrinksRepo
     {
         IEnumerable<Drink> ListDrinks { get; }
+        IEnumerable<Category> ListCategories { get; }
+
         IEnumerable<Drink> ListPreferredDrinks { get; }
-        IEnumerable<Drink> GetByCategories(string cat);
+        IEnumerable<Drink> GetDrinksByCategories(string cat);
         Drink GetById(int id);
 
     }

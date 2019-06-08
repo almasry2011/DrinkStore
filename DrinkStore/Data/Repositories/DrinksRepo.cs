@@ -18,19 +18,20 @@ namespace DrinkStore.Data.Repositories
 
         public IEnumerable<Drink> ListDrinks => db.drinks.ToList();
         public IEnumerable<Drink> ListPreferredDrinks => db.drinks.Where(p => p.IsPreferredDrink);
+        public IEnumerable<Category> ListCategories => db.categories.ToList();
 
-        public IEnumerable<Drink> GetByCategories(string cat)
+        public IEnumerable<Drink> GetDrinksByCategories(string cat)
         {
             if (!string.IsNullOrEmpty(cat) || !string.IsNullOrWhiteSpace(cat))
             {
-                return db.drinks.Include(c => c.Category).Where(s => s.Category.CategoryName == cat);
+                var m = db.drinks.Where(s => s.Category.CategoryName.ToLower() == cat.ToLower()).Include(c => c.Category);
+                return m;
             }
             else
             {
                 return db.drinks.ToList();
             }
         }
-
         public Drink GetById(int id)
         {
             var drink = db.drinks.Include(c => c.Category).SingleOrDefault(s => s.DrinkId == id);
@@ -43,8 +44,5 @@ namespace DrinkStore.Data.Repositories
                 return null;
             }
         }
-
-     
-
-}
+    }
 }
