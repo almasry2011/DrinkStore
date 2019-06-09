@@ -15,6 +15,8 @@ namespace DrinkStore.Data
         public DbSet<Drink> drinks { get; set; }
         public DbSet<Category> categories { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> orders { get; set; }
+        public DbSet<DrinkOrder> drinkOrders { get; set; }
 
     }
 }

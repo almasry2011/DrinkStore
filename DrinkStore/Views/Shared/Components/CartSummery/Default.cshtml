@@ -1,2 +1,8 @@
 ﻿@model CartViewModel
-<span class="glyphicon glyphicon-shopping-cart">   @Model.CartTotal.ToString("c")  </span>
+<span class="nav-link text-dark" >
+    <a class="btn btn-outline-primary" asp-action="cart" asp-controller="index">
+        <i class="glyphicon glyphicon-shopping-cart">
+          CartTotal : @Model.CartTotal $
+        </i>
+    </a>
+</span>

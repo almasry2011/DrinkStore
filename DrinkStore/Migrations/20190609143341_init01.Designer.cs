@@ -4,14 +4,16 @@ using DrinkStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DrinkStore.Migrations
 {
     [DbContext(typeof(DrinksDbContext))]
-    partial class DrinksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190609143341_init01")]
+    partial class init01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

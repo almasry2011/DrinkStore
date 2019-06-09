@@ -37,6 +37,7 @@ namespace DrinkStore
 
             services.AddScoped<IDrinksRepo, DrinksRepo>();
             services.AddScoped<IShoppinCartRepo, ShoppinCartRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession();

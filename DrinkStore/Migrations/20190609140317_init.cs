@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DrinkStore.Migrations
 {
-    public partial class reinit : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +20,24 @@ namespace DrinkStore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    OrderTotal = table.Column<decimal>(nullable: false),
+                    OrderPlaced = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orders", x => x.OrderId);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,9 +73,9 @@ namespace DrinkStore.Migrations
                 {
                     CartItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DrinkId = table.Column<int>(nullable: false),
                     amount = table.Column<int>(nullable: false),
-                    ShoppingCartID = table.Column<string>(nullable: true)
+                    ShoppingCartID = table.Column<string>(nullable: true),
+                    DrinkId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,10 +88,46 @@ namespace DrinkStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "drinkOrders",
+                columns: table => new
+                {
+                    DrinkOrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OrderId = table.Column<int>(nullable: false),
+                    DrinkId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_drinkOrders", x => x.DrinkOrderId);
+                    table.ForeignKey(
+                        name: "FK_drinkOrders_drinks_DrinkId",
+                        column: x => x.DrinkId,
+                        principalTable: "drinks",
+                        principalColumn: "DrinkId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_drinkOrders_orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_DrinkId",
                 table: "CartItems",
                 column: "DrinkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_drinkOrders_DrinkId",
+                table: "drinkOrders",
+                column: "DrinkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_drinkOrders_OrderId",
+                table: "drinkOrders",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_drinks_CategoryId",
@@ -86,7 +141,13 @@ namespace DrinkStore.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
+                name: "drinkOrders");
+
+            migrationBuilder.DropTable(
                 name: "drinks");
+
+            migrationBuilder.DropTable(
+                name: "orders");
 
             migrationBuilder.DropTable(
                 name: "categories");
