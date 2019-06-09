@@ -29,15 +29,18 @@ namespace DrinkStore
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<DrinksDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IDrinksRepo, DrinksRepo>();
+            services.AddScoped<IShoppinCartRepo, ShoppinCartRepo>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

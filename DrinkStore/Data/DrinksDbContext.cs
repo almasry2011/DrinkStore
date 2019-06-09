@@ -1,5 +1,4 @@
-﻿using DrinkAndGo.Data.Models;
-using DrinkStore.Data.Models;
+﻿using DrinkStore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

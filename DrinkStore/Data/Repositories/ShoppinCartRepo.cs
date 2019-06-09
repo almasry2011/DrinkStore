@@ -1,5 +1,6 @@
 ﻿using DrinkStore.Data.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DrinkStore.Data.Repositories
 {
-    public class ShoppinCartRepo
+    public class ShoppinCartRepo : IShoppinCartRepo
     {
         private readonly DrinksDbContext db;
         private readonly IHttpContextAccessor context;
@@ -29,7 +30,7 @@ namespace DrinkStore.Data.Repositories
                 {
                     amount = amount,
                     Drink = drink,
-                    ShoppingCartID = context.HttpContext.Session.Id
+                    ShoppingCartID = Shopping_cart_id
                 };
                 db.CartItems.Add(cartItem);
             }
@@ -41,7 +42,7 @@ namespace DrinkStore.Data.Repositories
         }
         public IEnumerable<CartItem> ViewShoppingCart()
         {
-            var cartSession = db.CartItems.Where(s => s.ShoppingCartID == Shopping_cart_id);
+            var cartSession = db.CartItems.Where(s => s.ShoppingCartID == Shopping_cart_id).Include(d=>d.Drink);
             return cartSession;
         }
         public void RemoveFromCart(Drink drink)
@@ -65,6 +66,12 @@ namespace DrinkStore.Data.Repositories
                 db.CartItems.RemoveRange(cartItem);
             }
             db.SaveChanges();
+        }
+
+        public decimal GetCartTotal()
+        {
+            var CartTotal = db.CartItems.Where(s => s.ShoppingCartID == Shopping_cart_id).Sum(s=>s.amount*s.Drink.Price);
+            return CartTotal;
         }
     }
 }

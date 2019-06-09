@@ -1,0 +1,73 @@
+﻿@model CartViewModel
+<head>
+    <title>DrinkStore ShoppingCart</title>
+</head>
+<div class="container">
+    <div class="row">
+        <main class="col-sm-9">
+            <div class="card">
+                <table class="table table-hover shopping-cart-wrap" style="margin-bottom:0px">
+                    <thead class="text-muted">
+                        <tr>
+                            <th colspan="3" class="text-center"> Your ShoppingCart Details</th>
+                            <th class="text-center" width="200">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.cartItems)
+                        {
+                            <tr>
+                                <td style="width: 120px;  height: 120px; padding-bottom:0px;">
+                                    <figure class="media">
+                                        <div class="img-wrap"><img src="@item.Drink.ImageThumbnailUrl" class="img-thumbnail img-sm"></div>
+                                    </figure>
+                                </td>
+                                <td style="width:200px">
+                                    <div>
+                                        <span class="badge badge-light"> Name     :    .  </span> <span class="badge badge-info"> <b>  @item.Drink.Name </b>   </span>
+                                    </div>
+                                    <div>
+                                        <span class="badge badge-light">  InStock : </span> <span class="badge badge-success">@item.Drink.InStock</span>
+                                    </div>
+                                    <div>
+                                        <span class="badge badge-light">  Price      :    .  </span> <span class="badge badge-danger">    @item.Drink.Price</span>
+                                    </div>
+                                </td>
+                                <td style="width:90px">
+                                    <div class="price-wrap">
+                                        <var class="price"> @item.Drink.Price.ToString("c")</var>
+                                        <small class="text-muted">(each)</small>
+                                    </div>
+                                    <br />
+                                    <b>
+                                        Amount :  @item.amount
+                                    </b>
+                                </td>
+                                <td class="text-right">
+                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-outline-success" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+                                    <a href="" class="btn btn-outline-danger"> × Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="  text-right" style="padding-right: 70px;">
+                                <a asp-action=" " asp-controller="   " class="btn btn-outline-success ">Checkout</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </main>
+        <aside class="col-sm-3">
+            <div class="alert alert-success">
+                <b>
+                    Total price :   <span class="text-right">   USD @Model.CartTotal</span> <hr />
+                    Discount   :   <span class="text-right">    USD 0</span><hr />
+                    Total          :    <span class="text-right">   USD @Model.CartTotal</span> <hr />
+                </b>
+            </div>
+        </aside>
+    </div>
+</div>
