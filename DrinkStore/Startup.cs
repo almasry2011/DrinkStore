@@ -64,7 +64,7 @@ namespace DrinkStore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=drink}/{action=list}/{id?}");
             });
         }
     }

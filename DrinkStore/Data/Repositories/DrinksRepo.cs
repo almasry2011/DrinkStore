@@ -44,5 +44,22 @@ namespace DrinkStore.Data.Repositories
                 return null;
             }
         }
+
+        public void AddPreferredDrinks(int id)
+        {
+            var drink = db.drinks.SingleOrDefault(d => d.DrinkId == id);
+            drink.IsPreferredDrink = true;
+            db.SaveChanges();
+
+        }
+
+        public Drink DrinkDetail(int id)
+        {
+            var drink = db.drinks.SingleOrDefault(d => d.DrinkId == id);
+            return drink;
+        }
+
+
+
     }
 }

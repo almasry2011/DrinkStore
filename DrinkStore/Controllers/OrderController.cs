@@ -13,10 +13,13 @@ namespace DrinkStore.Controllers
     {
         private readonly IOrderRepo orderRepo;
         private readonly IHttpContextAccessor context;
-        public OrderController(IOrderRepo orderRepo, IHttpContextAccessor Context)
+        private readonly IShoppinCartRepo shoppinCartRepo;
+
+        public OrderController(IOrderRepo orderRepo, IHttpContextAccessor Context,IShoppinCartRepo shoppinCartRepo)
         {
             this.orderRepo = orderRepo;
             context = Context;
+            this.shoppinCartRepo = shoppinCartRepo;
         }
         [HttpGet]
         public IActionResult Checkout()
@@ -34,6 +37,7 @@ namespace DrinkStore.Controllers
            var o= orderRepo.ViewOrder(context.HttpContext.Session.Id);
             if (o!=null)
             {
+                shoppinCartRepo.ClearCart();
                 return View(o);
             }
             else

@@ -15,8 +15,9 @@ namespace DrinkStore.Controllers
         {
             this.drinksRepo = drinksRepo;
         }
-
-        public IActionResult List( string cat)
+        [Route("{controller}/list")]
+        [Route("/")]
+        public IActionResult List(string cat)
         {
             if (!string.IsNullOrEmpty(cat))
             {
@@ -29,7 +30,26 @@ namespace DrinkStore.Controllers
                 return View(listModel);
             }
         }
-     
- 
+
+        [Route("{controller}/Preferred")]
+        public IActionResult PreferredDrinksList()
+        {
+                var PreferredDrinks = drinksRepo.ListPreferredDrinks;
+                return View("list",PreferredDrinks);
+        }
+
+        public IActionResult AddPreferredDrinksList(int id)
+        {
+           drinksRepo.AddPreferredDrinks(id);
+            return RedirectToAction("list");
+        }
+
+        public IActionResult DrinkDetails(int id)
+        {
+           var drink= drinksRepo.DrinkDetail(id);
+            return View(drink);
+        }
+
+
     }
 }

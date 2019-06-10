@@ -11,6 +11,8 @@ namespace DrinkStore.Data.Repositories
         IEnumerable<Drink> ListPreferredDrinks { get; }
         IEnumerable<Drink> GetDrinksByCategories(string cat);
         Drink GetById(int id);
+        void AddPreferredDrinks(int id);
+        Drink DrinkDetail(int id);
 
     }
 

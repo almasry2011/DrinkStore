@@ -5,7 +5,9 @@
         <div class="caption">
             <div class="row">
                 <div class="col-md-9 col-xs-9">
-                    <h4><b>@Model.Name</b> </h4>
+                    <h4><b>
+                            <a asp-action="DrinkDetails" asp-controller="drink" asp-route-id="@Model.DrinkId" >@Model.Name </a>
+                </b> </h4>
                 </div>
                 <div class="col-md-3 col-xs-3 price">
                     <h4>
@@ -16,7 +18,8 @@
             <p>@Model.ShortDescription</p>
             <div class="row">
                 <div class="col-md-6">
-                    <a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a>
+                    <a asp-action="AddPreferredDrinksList" asp-controller="drink" asp-route-id="@Model.DrinkId" class="btn btn-primary btn-product">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> Like  </a>
                 </div>
                 <div class="col-md-6">
                     <a asp-action="AddToCart" asp-controller="cart" asp-route-id="@Model.DrinkId" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
