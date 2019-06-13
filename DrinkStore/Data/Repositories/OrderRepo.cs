@@ -34,7 +34,15 @@ namespace DrinkStore.Data.Repositories
                 };
                 db.drinkOrders.Add(drinkOrder);
             }
-            db.SaveChanges();
+           
+            if (db.SaveChanges()<0)
+            {
+                foreach (var item in shoppinCartRepo.ViewShoppingCart())
+                {
+                    item.Drink.Stock += item.amount;
+                }
+                db.SaveChanges();
+            } 
         }
         public Order ViewOrder(string SessionId)
         {

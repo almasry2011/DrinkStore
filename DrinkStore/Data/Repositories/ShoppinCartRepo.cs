@@ -38,7 +38,12 @@ namespace DrinkStore.Data.Repositories
             {
                 var a = amount > 1 ? cartItem.amount = amount : cartItem.amount++;
             }
-            db.SaveChanges();
+            if (db.SaveChanges() > 0)
+            {
+                var Stock = drink.Stock >= 1 ? drink.Stock -= amount: drink.Stock = 0;
+
+                db.SaveChanges(); 
+            }
         }
         public IEnumerable<CartItem> ViewShoppingCart()
         {
@@ -52,7 +57,7 @@ namespace DrinkStore.Data.Repositories
             if (cartItem != null)
             {
                 if (cartItem.amount > 1)
-                { cartItem.amount--; }
+                {  cartItem.amount--;  drink.Stock++; }
                 else
                 { db.CartItems.Remove(cartItem); }
             }

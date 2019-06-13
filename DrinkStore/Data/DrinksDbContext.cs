@@ -1,4 +1,5 @@
 ﻿using DrinkStore.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DrinkStore.Data
 {
-    public class DrinksDbContext:DbContext
+    public class DrinksDbContext:IdentityDbContext
     {
         public DrinksDbContext(DbContextOptions<DrinksDbContext> options):base(options)
         {
